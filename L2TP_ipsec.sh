@@ -14,7 +14,7 @@ if [ ! $? -eq 0 ];then
  fi
  done
 fi
-#----------------------
+#------------修改ipsec配置文件---------
 cf=/etc/ipsec.d/hkz_ipsec.conf
 echo "conn IDC-PSK-NAT" >> $cf
 echo " rightsubnet=vhost:%priv " >> $cf 
