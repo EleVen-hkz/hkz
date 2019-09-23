@@ -16,20 +16,20 @@ if [ ! $? -eq 0 ];then
 fi
 #------------修改ipsec配置文件---------
 cf=/etc/ipsec.d/hkz_ipsec.conf
-echo "conn IDC-PSK-NAT" >> $cf
-echo " rightsubnet=vhost:%priv " >> $cf 
-echo " also=IDC-PSK-noNAT" >> $cf 
-echo "conn IDC-PSK-noNAT" >> $cf 
-echo " authby=secret   " >> $cf
-echo " ike=3des-sha1;modp1024" >> $cf
-echo " phase2alg=aes256-sha1;modp2048" >> $cf
-echo " pfs=no" >> $cf
-echo " auto=add" >> $cf
-echo " keyingtries=3" >> $cf
-echo " rekey=no" >> $cf
-echo " ikelifetime=8h" >> $cf
-echo " keylife=3h" >> $cf
-echo " type=transport" >> $cf
+echo "conn L2TP-PSK-NAT" >> $cf
+echo "   rightsubnet=vhost:%priv " >> $cf 
+echo "   also=L2TP-PSK-noNAT" >> $cf 
+echo "conn L2TP-PSK-noNAT" >> $cf 
+echo "   authby=secret   " >> $cf
+echo "   ike=3des-sha1;modp1024" >> $cf
+echo "   phase2alg=aes256-sha1;modp2048" >> $cf
+echo "   pfs=no" >> $cf
+echo "   auto=add" >> $cf
+echo "   keyingtries=3" >> $cf
+echo "   rekey=no" >> $cf
+echo "   ikelifetime=8h" >> $cf
+echo "   keylife=3h" >> $cf
+echo "   type=transport" >> $cf
 while :
  do 
  read -p "请输入本机公网IP地址:"  gip
@@ -40,7 +40,6 @@ while :
  break
  fi
  done
-#echo " left=201.1.2.10" >> $cf
 echo " leftprotoport=17/1701" >> $cf
 echo " right=%any " >> $cf
 echo " rightprotoport=17/%any" >> $cf
