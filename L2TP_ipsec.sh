@@ -1,5 +1,6 @@
 #!/bin/bash
 echo "正在运行,请根据提示输入相应参数!"
+sleep 2 
 yum -y install libreswan 
 #安装ipsec软件包
 if [ ! $? -eq 0 ];then
@@ -40,12 +41,13 @@ while :
  break
  fi
  done
-echo " leftprotoport=17/1701" >> $cf
-echo " right=%any " >> $cf
-echo " rightprotoport=17/%any" >> $cf
+echo "   leftprotoport=17/1701" >> $cf
+echo "   right=%any " >> $cf
+echo "   rightprotoport=17/%any" >> $cf
 #---------------------------------
 echo "$gip  %any: PSK "randpass" " > /etc/ipsec.d/hkz.secrets
 systemctl restart ipsec
+systemctl enable  ipsec
 #--------------------------------
 yum -y install xl2tpd 
 if [ ! $? -eq 0 ];then
@@ -67,6 +69,7 @@ sed -inr  "/lock/s/^/#/" /etc/ppp/options.xl2tpd
 echo "require-mschap-v2" >> /etc/ppp/options.xl2tpd
 echo "hkz   *   EleVen.123   * " >> /etc/ppp/chap-secrets
 systemctl restart xl2tpd
+systemctl enable  xl2tpd
 #--------------------------------
 echo "1" > /proc/sys/net/ipv4/ip_forward
 echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
