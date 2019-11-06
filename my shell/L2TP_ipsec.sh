@@ -45,7 +45,7 @@ echo "   leftprotoport=17/1701" >> $cf
 echo "   right=%any " >> $cf
 echo "   rightprotoport=17/%any" >> $cf
 #---------------------------------
-echo "$gip  %any: PSK "hkz" " > /etc/ipsec.d/hkz.secrets
+echo '$gip  %any: PSK "hkz" ' > /etc/ipsec.d/hkz.secrets
 systemctl restart ipsec
 systemctl enable  ipsec
 #--------------------------------
@@ -76,5 +76,7 @@ echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
 firewall-cmd --set-default-zone=trusted  &> /dev/null
 iptables -t nat -A POSTROUTING -s 192.168.1.0/24  -j SNAT --to-source $gip
 echo "完成"
-
+echo '	ipsec :  hkz 
+	用户名:  hkz
+	密码:	 EleVen.123'
 
