@@ -139,15 +139,15 @@ get_ip(){
     [ ! -z ${IP} ] && echo ${IP} || echo
 }
 
-get_char(){
-    SAVEDSTTY=`stty -g`
-    stty -echo
-    stty cbreak
-    dd if=/dev/tty bs=1 count=1 2> /dev/null
-    stty -raw
-    stty echo
-    stty $SAVEDSTTY
-}
+#get_char(){
+#    SAVEDSTTY=`stty -g`
+#    stty -echo
+#    stty cbreak
+#    dd if=/dev/tty bs=1 count=1 2> /dev/null
+#    stty -raw
+#    stty echo
+#    stty $SAVEDSTTY
+#}
 
 # Pre-installation settings
 pre_install(){
@@ -221,9 +221,9 @@ shadowsocksport=24141
 #    break
 #    done
 #
-    echo
-    echo "Press any key to start...or Press Ctrl+C to cancel"
-    char=`get_char`
+#    echo
+#    echo "Press any key to start...or Press Ctrl+C to cancel"
+#    char=`get_char`
     # Install necessary dependencies
     if check_sys packageManager yum; then
         yum install -y python python-devel python-setuptools openssl openssl-devel curl wget unzip gcc automake autoconf make libtool
