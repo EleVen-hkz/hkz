@@ -25,3 +25,45 @@ GET_PORT(){
     done
     echo ${ALLPORT}
 }
+
+FIND_DIR(){
+    DIRNAME="hello"
+    First_DIR="data usr opt home var"
+    for i in ${First_DIR};do
+        RESULT=`find /${i}/ -type d  -name ${DIRNAME} 2>/dev/null`
+        if [[ ${RESULT} ]]; then
+            break
+        fi
+    done
+    if [[ ! ${RESULT} ]]; then
+        DIR=`ls -l /|grep "^d"|awk '{print $NF}'|grep -Ev "boot|proc|run|dev|usr|opt|data|home|var"`
+        for i in  ${DIR}; do 
+            RESULT=`find /${i} -type d  -name ${DIRNAME} 2>/dev/null`
+            if [[ ${RESULT} ]]; then
+                break
+            fi
+        done 
+    fi
+    echo ${RESULT}
+}
+
+FIND_FILE(){
+    FILENAME="hello.world"
+    First_DIR="data home usr opt var"
+    for i in ${First_DIR};do
+        RESULT=`find /${i}/ -type f  -name ${FILENAME} 2>/dev/null`
+        if [[ ${RESULT} ]]; then
+            break
+        fi
+    done
+    if [[ ! ${RESULT} ]]; then
+        DIR=`ls -l /|grep "^d"|awk '{print $NF}'|grep -Ev "boot|proc|run|dev|usr|opt|data|home|var"`
+        for i in  ${DIR}; do 
+            RESULT=`find /${i} -type f  -name ${FILENAME} 2>/dev/null`
+            if [[ ${RESULT} ]]; then
+                break
+            fi
+        done 
+    fi
+echo ${RESULT}
+}
