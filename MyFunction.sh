@@ -67,3 +67,19 @@ FIND_FILE(){
     fi
 echo ${RESULT}
 }
+
+#获取IP（粗略）
+IP_TMP_VAR=`ip addr | grep  inet|grep " scope global"| awk '{print $NF}'`
+for i in ${IP_TMP_VAR}
+do
+   RESULT_IS_NULL=`ls /etc/sysconfig/network-scripts/*${i}* 2>/dev/null`
+   if [ -n "${RESULT_IS_NULL}" ];then
+        IP=`ip addr | grep  inet|grep " scope global"|grep ${i}|grep 'brd'|awk '{print $2}'|awk -F '/' '{print $1}'`
+        if [[ "$IP"=="10.212.221.222" ]];then
+           break
+        fi
+   fi
+done
+if [[ ! ${IP} ]]; then
+    IP=`hostname -I|awk '{print $1}'`
+fi
